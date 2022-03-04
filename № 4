@@ -1,0 +1,150 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class robot extends Main {
+    public robot(String kategory, String surname, String name1, String patronymic, String email, String number) {
+        super(kategory, surname, name1, patronymic, email, number);
+    }
+
+    static robot[] list = new robot[25]; 
+    static int idContact = 6; 
+
+    public static void fail() {
+        list[0] = new robot("Работа", "Иван", "Иванов", "Иванович", "ivan@gmail.com", "87751111111");
+        list[1] = new robot("Работа", "Сергеев", "Сергей", "Аскарович", "sergey@gmail.com", "87059963255");
+        list[2] = new robot("Универ", "Димов", "Дима", "Димович", "Dima@gmail.com", "87756591232");
+        list[3] = new robot("Медицина", "Евгеньев", "Евгений", "Евгенивич", "zhenya@gmail.com", "87778578367");
+        list[4] = new robot("Медицина", "Владимиров", "Владимир", "Владимерович", "Vladimer@mail.ru", "87776549874");
+        list[5] = new robot("Танцы", "Петров", "Петр", "Петрович", "Petr3@gmail.com", "87054896523");
+    }
+
+    public static void main(String[] args) {
+        displayMenu();
+    }
+
+    public static void saveContact(String kategory, String surname, String name, String patronymic, String email, String number) {
+        System.out.println("Контакт сохранен:" + kategory + " " + surname + " " + name + " " + patronymic + " " + email + " " + number);
+        list[idContact] = new robot(kategory, surname, name, patronymic, email, number);
+        idContact++;
+    }
+
+    public static void findNumber(String Name) {
+        System.out.println("");
+    }
+
+    public static void displayMenu() {
+        fail(); 
+        Scanner in = new Scanner(System.in);
+        System.out.println("Что вы хотите сделать?");
+        System.out.println("1. Сохранить контакт");
+        System.out.println("2. Найти контакт");
+        System.out.println("3. Удалить контакт");
+
+
+        int choice = in.nextInt();                                                                                
+        in.nextLine();
+        switch (choice) {
+            case 1:
+                System.out.println("Введите категорию человека которого хотите добавить:");
+                System.out.println("Пример: Семья,Универ,Работа,Медицина,Танцы. Можете добавить свою категорию");
+                String kategory = in.nextLine();
+                System.out.print("Введите фамилию человека которого хотите добавить:");
+                String surname = in.nextLine();
+                System.out.println("Введите имя человека которого хотите добавить:");
+                String name = in.nextLine();
+                System.out.println("Введите отчество человека которого хотите добавить:");
+                String patronymic = in.nextLine();
+                System.out.println("Введите почту человека которого хотите добавить:");
+                String email = in.nextLine();
+                System.out.println("Введите номер человека которого хотите добавить:");
+                String number = in.nextLine();
+                saveContact(kategory, surname, name, patronymic, email, number);
+
+                break;
+            case 2:
+                System.out.println("Как зовут человека, номер которого вы хотите найти?");
+                name = in.nextLine();
+                System.out.println();
+                break;
+            case 3:
+                System.out.println("Как зовут человека которого вы хотите удалить?");
+            default:
+                break;
+        }
+        for (int i = 0; i < idContact; i++)
+            list[i].showFullName();
+    }
+}
+
+
+
+
+№2
+
+package com.company;
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Objects;
+
+public class robot {
+
+    public static void main(String[] args) {
+        Set<Student> listOfStudents = new HashSet<>();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите информацию о студенте: \"ФИО, номер группы, номер студенческого билета\"");
+
+        while (true) {
+            String input = scanner.nextLine();
+            System.out.println("Введите информацию о студенте (для завершения работы программы введите \"end\")");
+            String[] parts = input.split(", ");
+            String name = parts[0];
+            String group = parts[1];
+            String studentId = parts[2];
+            Student stud = new Student(name, group, studentId);
+            listOfStudents.add(stud);
+            System.out.println(listOfStudents);
+            if ("end".equals(input)) {
+                System.out.println("Список студентов:");
+                Iterator<Student> i = listOfStudents.iterator();
+                while (i.hasNext())
+                    System.out.println(i.next());
+            }
+        }
+    }
+}
+
+public class Student {
+    protected String name;
+    protected String group;
+    protected String studentId;
+
+    public Student(String name, String group, String studentId) {
+        this.name = name;
+        this.group = group;
+        this.studentId = studentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(name, student.name) && Objects.equals(group, student.group) &&
+                Objects.equals(studentId, student.studentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, group, studentId);
+    }
+
+    @Override
+    public String toString() {
+        return name + ", " + group + ", " + studentId;
+    }
+}
