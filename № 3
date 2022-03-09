@@ -1,0 +1,16 @@
+package com.company;
+import java.util.TreeMap;
+
+public class robot {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> tm = new TreeMap<Integer, String>();
+        tm.put(4, "Иванов Иван Иванович");
+        tm.put(2, "Петров Иван Александрович");
+        tm.put(5, "Максимов Иван Александрович");
+        tm.put(3, "Беляев Гордей Тихонович");
+        tm.put(4, "Копылов Давид Степанович");
+
+        System.out.println(tm.descendingKeySet());
+        System.out.println(tm.descendingMap());
+    }
+}
